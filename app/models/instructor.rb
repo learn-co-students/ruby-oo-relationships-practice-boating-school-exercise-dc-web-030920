@@ -42,10 +42,19 @@ class Instructor
     end
 
     def fail_student(student, test_name)
-        # it should try to find a matching BoatingTest 
-        # and update its status to 'failed'. 
-        # If it cannot find an existing BoatingTest, 
-        # it should create one with the name, the matching student, and the status 'failed'.
+
+        #find a test where the student and test_name matches
+       found_test = BoatingTest.find{|test|  
+       test.student == student && test.test_name == test_name
+        }
+        #if the test exists 
+        if found_test == nil 6
+            #we want to create that test
+            BoatingTest.new(student, test_name, "failed", instructor)
+        else
+        #otherwise, update that test's status to "failed"
+        found_test.status = "failed" 
+        end
     end
 
 end
